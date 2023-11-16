@@ -1,0 +1,12 @@
+serviceAccount:
+  name: "k8s-node-patcher"
+
+clusterRole:
+  name: "k8s-node-patcher"
+
+clusterRoleBinding:
+  name: "k8s-node-patcher"
+
+daemonSet:
+  name: "k8s-node-patcher"
+  matchLabel: "k8s-node-patcher"

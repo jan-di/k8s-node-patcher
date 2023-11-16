@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: "{{ .Values.daemonSet.name }}"
+spec:
+  selector:
+    matchLabels:
+      name: "{{ .Values.daemonSet.matchLabel }}"
+  template:
+    metadata:
+      labels:
+        name: "{{ .Values.daemonSet.matchLabel }}"
+    spec:
+      containers:
+        - name: patcher
+          image: python
+          imagePullPolicy: IfNotPresent
+          command: ["chroot", "/"]
+          # command: ["/bin/bash", "-i"]
+          tty: true
+          stdin: true
+          stdinOnce: true
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: host
+              mountPath: /host
+          resources: {}
+          env:
+            - name: K8S_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+      volumes:
+        - name: host
+          hostPath:
+            path: /
+      hostNetwork: true
+      hostIPC: true
+      hostPID: true
+      tolerations:
+        - operator: "Exists"
+      serviceAccountName: "{{ .Values.serviceAccount.name }}"
