@@ -14,9 +14,9 @@ spec:
       containers:
         - name: patcher
           image: {{ .Values.image.registry }}/{{ .Values.image.image }}:{{ .Values.image.tag }}
-          imagePullPolicy: IfNotPresent
-          # command: ["chroot", "/"]
-          # command: ["/bin/bash", "-i"]
+          {{ with .Values.imagePullPolicy }}
+          imagePullPolicy: {{ . }}
+          {{ end }}
           tty: true
           stdin: true
           stdinOnce: true

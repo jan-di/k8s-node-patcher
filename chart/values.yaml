@@ -3,6 +3,8 @@ image:
   image: jan-di/k8s-node-patcher
   tag: main
 
+imagePullPolicy: ~
+
 serviceAccount:
   name: "k8s-node-patcher"
 

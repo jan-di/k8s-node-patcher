@@ -9,11 +9,11 @@ apiserver_token=$(cat ${serviceaccount}/token)
 apiserver_cacert=${serviceaccount}/ca.crt
 
 curl_args=()
-if [[ -z "${INSECURE:-}" ]]; then
+if [[ -n "${INSECURE:-}" ]]; then
+    scheme="http"
+else
     curl_args+=("--cacert" "$apiserver_cacert")
     scheme="https"
-else
-    scheme="http"
 fi
 apiserver_url=$scheme://$KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT
 
@@ -21,7 +21,7 @@ echo "Using kubernetes api at $apiserver_url"
 mkdir -p /tmp/k8s-node-patcher
 
 # shellcheck disable=SC2048,SC2086
-curl ${curl_args[*]} --fail --silent --header "Authorization: Bearer ${apiserver_token}" -X GET -o /tmp/k8s-node-patcher/node.json "${apiserver_url}/api/v1/nodes/${NODE_NAME}"
+curl ${curl_args[*]} --fail -sS --header "Authorization: Bearer ${apiserver_token}" -X GET -o /tmp/k8s-node-patcher/node.json "${apiserver_url}/api/v1/nodes/${NODE_NAME}" > /dev/null
 
 node_labels_blob=$(jq -r '.metadata.labels | to_entries[] | "\(.key)=\(.value)"' /tmp/k8s-node-patcher/node.json)
 playbook_tags=()
