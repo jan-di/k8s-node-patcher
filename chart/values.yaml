@@ -1,3 +1,8 @@
+image:
+  registry: ghcr.io
+  image: jan-di/k8s-node-patcher
+  tag: main
+
 serviceAccount:
   name: "k8s-node-patcher"
 
