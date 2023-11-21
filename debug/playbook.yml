@@ -1,0 +1,14 @@
+- name: Update web servers
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Task1
+      tags:
+        - always
+      ansible.builtin.debug:
+        msg: "Hi!"
+
+    - name: Task2
+      ansible.builtin.ping:
+      tags:
+        - node-role.kubernetes.io/master=
