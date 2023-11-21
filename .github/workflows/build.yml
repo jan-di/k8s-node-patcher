@@ -29,6 +29,7 @@ jobs:
             ${{ env.DOCKERHUB_TAG }}
             ${{ env.GITHUB_TAG }}
           tags: |
+            type=sha
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
