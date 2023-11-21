@@ -5,6 +5,8 @@ image:
 
 imagePullPolicy: ~
 
+inlinePlaybooks: {}
+
 serviceAccount:
   name: "k8s-node-patcher"
 

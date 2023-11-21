@@ -25,6 +25,8 @@ spec:
           volumeMounts:
             - name: host
               mountPath: /host
+            - name: inline-playbooks
+              mountPath: /k8s-node-patcher/playbooks
           resources: {}
           env:
             - name: NODE_NAME
@@ -35,6 +37,9 @@ spec:
         - name: host
           hostPath:
             path: /
+        - name: inline-playbooks
+          configMap:
+            name: inline-playbooks
       hostNetwork: true
       hostIPC: true
       hostPID: true
