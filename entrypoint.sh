@@ -9,7 +9,7 @@ apiserver_token=$(cat ${serviceaccount}/token)
 apiserver_cacert=${serviceaccount}/ca.crt
 
 curl_args=()
-if [[ -n "${INSECURE:-}" ]]; then
+if [[ -v "INSECURE" ]]; then
     scheme="http"
 else
     curl_args+=("--cacert" "$apiserver_cacert")
