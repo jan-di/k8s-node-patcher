@@ -3,7 +3,7 @@ name: Build Docker Images
 env:
   # DOCKERHUB_TAG: "docker.io/jandi/k8s-node-patcher"
   GITHUB_TAG: "ghcr.io/jan-di/k8s-node-patcher"
-  PLATFORMS: linux/amd64,linux/arm64
+  PLATFORMS: linux/amd64
 
 on:
   push:
